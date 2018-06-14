@@ -22,14 +22,6 @@ class UpgradeSchema implements UpgradeSchemaInterface
 
     private function upgradeToVersionTwoZeroTwo(SchemaSetupInterface $setup)
     {
-        $setup->getConnection()->addColumn(
-            $setup->getTable('sales_order'),
-            'order_note',
-            [
-                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                'nullable' => true,
-                'comment' => 'Magelicious Order Note ',
-            ]
-        );
+        echo 'UpgradeSchema->upgradeToVersionTwoZeroTwo()' . PHP_EOL;
     }
 }
