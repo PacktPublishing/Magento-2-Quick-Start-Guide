@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+    <type name="the_custom_cache" translate="label,description" instance="Magelicious\Core\Model\Cache\TheCustomCache">
+        <label>The Custom Cache</label>
+        <description>Our custom cache type</description>
+    </type>
+</config>

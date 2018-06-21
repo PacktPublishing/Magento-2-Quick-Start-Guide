@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Magelicious\Core\Api\Data\CustomerNoteInterface" type="Magelicious\Core\Model\CustomerNote"/>
+
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="customerNoteToOrderRepository" type="Magelicious\Core\Plugin\CustomerNoteToOrderRepository"/>
+        <plugin name="merchantNoteToOrderRepository" type="Magelicious\Core\Plugin\MerchantNoteToOrderRepository"/>
+    </type>
+
+</config>
