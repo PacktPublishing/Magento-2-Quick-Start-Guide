@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    
+    <route url="/V1/boxyBox/:boxId" method="GET">
+        <service class="Magelicious\Boxy\Api\BoxRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Magelicious_Boxy::box_get"/>
+        </resources>
+    </route>
+    
+    <route url="/V1/boxyBox/search" method="GET">
+        <service class="Magelicious\Boxy\Api\BoxRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Magelicious_Boxy::box_search"/>
+        </resources>
+    </route>
+    
+    <route url="/V1/boxyBox" method="POST">
+        <service class="Magelicious\Boxy\Api\BoxRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magelicious_Boxy::box_save"/>
+        </resources>
+    </route>
+    
+    <route url="/V1/boxyBox/:id" method="PUT">
+        <service class="Magelicious\Boxy\Api\BoxRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magelicious_Boxy::box_update"/>
+        </resources>
+    </route>
+    
+    <route url="/V1/boxyBox/:boxId" method="DELETE">
+        <service class="Magelicious\Boxy\Api\BoxRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Magelicious_Boxy::box_delete"/>
+        </resources>
+    </route>
+</routes>
