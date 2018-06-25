@@ -6,18 +6,21 @@ class BoxRepository implements \Magelicious\Boxy\Api\BoxRepositoryInterface
 {
     protected $boxFactory;
     protected $boxResourceModel;
+    protected $boxCollectionFactory;
     protected $searchResultsFactory;
     protected $collectionProcessor;
 
     public function __construct(
         \Magelicious\Boxy\Api\Data\BoxInterfaceFactory $boxFactory,
         \Magelicious\Boxy\Model\ResourceModel\Box $boxResourceModel,
+        \Magelicious\Boxy\Model\ResourceModel\Box\CollectionFactory $boxCollectionFactory,
         \Magelicious\Boxy\Api\Data\BoxSearchResultsInterfaceFactory $searchResultsFactory,
         \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor
     )
     {
         $this->boxFactory = $boxFactory;
         $this->boxResourceModel = $boxResourceModel;
+        $this->boxCollectionFactory = $boxCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->collectionProcessor = $collectionProcessor;
     }
@@ -65,19 +68,12 @@ class BoxRepository implements \Magelicious\Boxy\Api\BoxRepositoryInterface
      */
     public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria)
     {
+        $collection = $this->boxCollectionFactory->create();
+        $this->collectionProcessor->process($searchCriteria, $collection);
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($searchCriteria);
-
-        $collection = $this->boxFactory->create()->getCollection();
-        $this->collectionProcessor->process($searchCriteria, $collection);
+        $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
-
-        $boxes = [];
-        foreach ($collection->getItems() as $box) {
-            $boxes[] = $this->getById($box->getId());
-        }
-        $searchResults->setItems($boxes);
-
         return $searchResults;
     }
 
