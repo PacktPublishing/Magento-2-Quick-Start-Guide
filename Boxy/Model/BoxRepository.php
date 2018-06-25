@@ -49,7 +49,7 @@ class BoxRepository implements \Magelicious\Boxy\Api\BoxRepositoryInterface
     public function getById($boxId)
     {
         $box = $this->boxFactory->create();
-        $this->boxResourceModel->load($boxId, $boxId);
+        $this->boxResourceModel->load($box, $boxId);
         if (!$box->getId()) {
             throw new \Magento\Framework\Exception\NoSuchEntityException(__('Box with id "%1" does not exist.', $boxId));
         }
