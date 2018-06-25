@@ -2,6 +2,9 @@
 
 namespace Magelicious\Boxy\Api\Data;
 
+/**
+ * @api
+ */
 interface BoxSearchResultsInterface extends \Magento\Framework\Api\SearchResultsInterface
 {
     /**

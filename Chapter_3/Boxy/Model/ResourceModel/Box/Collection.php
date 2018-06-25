@@ -2,7 +2,7 @@
 
 namespace Magelicious\Boxy\Model\ResourceModel\Box;
 
-class Collection
+class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
     protected function _construct()
     {
