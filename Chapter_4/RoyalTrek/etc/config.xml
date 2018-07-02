@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<carriers>
+			<royaltrek>
+				<active>1</active>
+				<title>Royal Trek Shipping</title>
+				<sallowspecific>0</sallowspecific>
+				<showmethod>0</showmethod>
+				<specificerrmsg><![CDATA[The Royal Trek shipping method is not available. To use this shipping method, please contact us.]]></specificerrmsg>
+				<sort_order>10</sort_order>
+				<model>Magelicious\RoyalTrek\Model\Carrier\RoyalTrek</model>
+
+				<!-- The "Untracked Royal Mail" specific options -->
+				<royaltrekstandard>
+					<title><![CDATA[RoyalTrek Standard]]></title>
+					<shippingcost>4.99</shippingcost>
+				</royaltrekstandard>
+
+				<!-- The "Parcel Force 48hr" specific options -->
+				<royaltrek48hr>
+					<title><![CDATA[RoyalTrek 48h]]></title>
+					<shippingcost>9.99</shippingcost>
+				</royaltrek48hr>
+
+			</royaltrek>
+		</carriers>
+	</default>
+</config>
