@@ -24,7 +24,7 @@ class Resupply extends \Magento\Ui\Component\Listing\Columns\Column
             $storeId = $this->context->getFilterParam('store_id');
 
             foreach ($dataSource['data']['items'] as &$item) {
-                $item[$this->getData('name')]['edit'] = [
+                $item[$this->getData('name')]['resupply'] = [
                     'href' => $this->urlBuilder->getUrl(
                         'minventory/product/resupply',
                         ['id' => $item['entity_id'], 'store' => $storeId]

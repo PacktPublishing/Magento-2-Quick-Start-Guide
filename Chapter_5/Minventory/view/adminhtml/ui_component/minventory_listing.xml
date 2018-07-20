@@ -19,7 +19,6 @@
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Magelicious_Minventory::minventory</aclResource>
         <dataProvider class="Magelicious\Minventory\Ui\DataProvider\Product\ProductDataProvider" name="minventory_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
@@ -31,34 +30,34 @@
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
         <filters name="listing_filters" />
-        <!--<filters name="listing_filters">-->
-            <!--<filterSelect name="store_id" provider="${ $.parentName }">-->
-                <!--<settings>-->
-                    <!--<options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>-->
-                    <!--<caption translate="true">All Store Views</caption>-->
-                    <!--<label translate="true">Store View</label>-->
-                    <!--<dataScope>store_id</dataScope>-->
-                <!--</settings>-->
-            <!--</filterSelect>-->
-        <!--</filters>-->
-        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
-            <action name="status">
+        <filters name="listing_filters">
+            <filterSelect name="store_id" provider="${ $.parentName }">
                 <settings>
-                    <type>status</type>
-                    <label translate="true">Change status</label>
+                    <options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>
+                    <caption translate="true">All Store Views</caption>
+                    <label translate="true">Store View</label>
+                    <dataScope>store_id</dataScope>
+                </settings>
+            </filterSelect>
+        </filters>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <action name="resupply">
+                <settings>
+                    <type>resupply</type>
+                    <label translate="true">Resupply</label>
                     <actions>
                         <action name="0">
-                            <type>enable</type>
-                            <label translate="true">Enable</label>
-                            <url path="catalog/product/massStatus">
-                                <param name="status">1</param>
+                            <type>resupply_10</type>
+                            <label translate="true">Resupply +10</label>
+                            <url path="minventory/product/massResupply">
+                                <param name="qty">10</param>
                             </url>
                         </action>
                         <action name="1">
-                            <type>disable</type>
-                            <label translate="true">Disable</label>
-                            <url path="catalog/product/massStatus">
-                                <param name="status">2</param>
+                            <type>resupply_50</type>
+                            <label translate="true">Resupply +50</label>
+                            <url path="minventory/product/massResupply">
+                                <param name="qty">50</param>
                             </url>
                         </action>
                     </actions>
@@ -74,7 +73,7 @@
                     <item name="provider" xsi:type="string">minventory_listing.minventory_listing.minventory_columns.actions</item>
                     <item name="target" xsi:type="string">applyAction</item>
                     <item name="params" xsi:type="array">
-                        <item name="0" xsi:type="string">edit</item>
+                        <item name="0" xsi:type="string">resupply</item>
                         <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
                     </item>
                 </param>
@@ -98,14 +97,23 @@
                 <label translate="true">SKU</label>
             </settings>
         </column>
-        <column name="qty" sortOrder="30">
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="30">
+            <settings>
+                <addField>true</addField>
+                <options class="Magento\Catalog\Model\Product\Attribute\Source\Status"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="qty" sortOrder="40">
             <settings>
                 <addField>true</addField>
                 <filter>textRange</filter>
                 <label translate="true">Quantity</label>
             </settings>
         </column>
-        <actionsColumn name="resupply" class="Magelicious\Minventory\Ui\Component\Listing\Columns\Resupply" sortOrder="40">
+        <actionsColumn name="resupply" class="Magelicious\Minventory\Ui\Component\Listing\Columns\Resupply" sortOrder="50">
             <settings>
                 <indexField>entity_id</indexField>
             </settings>

@@ -8,43 +8,34 @@ class Resupply extends \Magelicious\Minventory\Controller\Adminhtml\Product
 {
     protected $stockRegistry;
     protected $productRepository;
-    protected $logger;
+    protected $resupply;
 
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
-        \Psr\Log\LoggerInterface $logger
+        \Magelicious\Minventory\Model\Resupply $resupply
     )
     {
         parent::__construct($context);
         $this->productRepository = $productRepository;
         $this->stockRegistry = $stockRegistry;
-        $this->logger = $logger;
+        $this->resupply = $resupply;
     }
 
     public function execute()
     {
-        $redirectResult = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-
-        $id = $this->getRequest()->getParam('id');
-
-        try {
-            $product = $this->productRepository->getById($id);
-
-            $stockItem = $this->stockRegistry->getStockItemBySku($product->getSku());
-            $stockItem->setQty($stockItem->getQty() + 10);
-            $stockItem->setIsInStock((bool)$stockItem->getQty());
-
-            // This won't work for all products, composites might not update
-            $this->stockRegistry->updateStockItemBySku($product->getSku(), $stockItem);
-
-            $this->messageManager->addSuccessMessage(__('Successfully resupplied %1.', $product->getSku()));
-        } catch (\Exception $e) {
-            $this->logger->critical($e);
-            $this->messageManager->addErrorMessage($e->getMessage());
+        if ($this->getRequest()->isPost()) {
+            $this->resupply->resupply(
+                $this->getRequest()->getParam('id'),
+                $_POST['minventory_product']['qty']
+            );
+            $this->messageManager->addSuccessMessage(__('Successfully resupplied'));
+            $redirectResult = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+            return $redirectResult->setPath('minventory/product/index');
+        } else {
+            $pageResult = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+            return $pageResult;
         }
-
-        return $redirectResult->setPath('minventory/product/index');
     }
 }
