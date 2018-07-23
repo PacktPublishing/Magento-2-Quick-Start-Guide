@@ -34,8 +34,9 @@ class Resupply extends \Magelicious\Minventory\Controller\Adminhtml\Product
             $redirectResult = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
             return $redirectResult->setPath('minventory/product/index');
         } else {
-            $pageResult = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-            return $pageResult;
+            $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+            $resultPage->getConfig()->getTitle()->prepend((__('Stock Resupply')));
+            return $resultPage;
         }
     }
 }
