@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="empty"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magelicious\Jsco\Block\Test"
+                   name="jsco_test"
+                   template="Magelicious_Jsco::playground.phtml">
+            </block>
+            <block name="popular_products"
+                   template="Magelicious_Jsco::popular-products.phtml" />
+        </referenceContainer>
+    </body>
+</page>

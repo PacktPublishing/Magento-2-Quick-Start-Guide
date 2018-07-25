@@ -1,0 +1,90 @@
+<!-- "declarative" notation type, using "data-mage-init" attribute -->
+<a data-mage-init='{"redirectUrl":{"url":"http://test.url"}}'>
+    <span><?= __('Test') ?></span>
+</a>
+
+<button type="button"
+        data-mage-init='{"redirectUrl":{"url":"http://test.url"}}'>
+    <span><?= __('Test') ?></span>
+</button>
+
+<select data-mage-init='{"redirectUrl": {"event":"change"}}'>
+    <option value="http://test.url/1">Test#1</option>
+    <option value="http://test.url/2">Test#2</option>
+    <option value="http://test.url/3">Test#3</option>
+</select>
+<!-- #END -->
+
+<!-- "declarative" notation type, using <script type="text/x-magento-init" /> -->
+<div id="playgroundCookieBlock" class="message global cookie" style="display: none;">
+    <p>
+        <strong><?= $block->escapeHtml(__('We use cookies to make your experience better.')) ?></strong>
+        <span><?= $block->escapeHtml(__('To comply with the new e-Privacy directive, we need to ask for your consent to set the cookies.')) ?></span>
+        <?= $block->escapeHtml(__('<a href="%1">Learn more</a>.', 'http://magelicious.loc/privacy'), ['a']) ?>
+    </p>
+    <div class="actions">
+        <button id="btn-cookie-allow" class="action allow primary">
+            <span><?= $block->escapeHtml(__('Allow Cookies')) ?></span>
+        </button>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#playgroundCookieBlock": {
+            "cookieNotices": {
+                "cookieAllowButtonSelector": "#btn-cookie-allow",
+                "cookieName": "playgroundCookie",
+                "cookieValue": "playgroundCookieValue",
+                "cookieLifetime": "300",
+                "noCookiesUrl": "http://magelicious.loc/no-cookies"
+            }
+        }
+    }
+</script>
+<!-- #END -->
+
+
+<!-- "imperative" notation type, using <script> tag -->
+<div>
+    <a href="#" id="playgroundModalLink">Show modal!</a>
+</div>
+
+<div id="playgroundModal">
+    <p>Content...</p>
+</div>
+
+<script>
+    require([
+            'jquery',
+            'mage/translate',
+            'Magento_Ui/js/modal/modal'
+        ], function ($, $t, modal) {
+            $(function () {
+                var options = {
+                    title: 'Playground Modal',
+                    buttons: [{
+                        text: $t('Continue'),
+                        click: function () {
+                            this.closeModal();
+                        }
+                    }]
+                };
+
+                // Otherwise "cannot call methods on modal prior to initialization; attempted to call method 'openModal'"
+                modal(options, $('#playgroundModal'));
+
+                $('#playgroundModalLink').on('click', function () {
+                    $('#playgroundModal').modal('openModal');
+                });
+            });
+        }
+    );
+</script>
+<!-- #END -->
+
+
+<?php $helper = $this->helper('Magento\Framework\Json\Helper\Data') ?>
+
+<span data-mage-init='<?= $helper->jsonEncode(
+        ['welcome' => ['name' => 'John Doe']]
+) ?>'></span>
