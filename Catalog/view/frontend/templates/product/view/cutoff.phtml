@@ -1,0 +1,21 @@
+<?php /* @var \Magelicious\Catalog\Block\Product\View\Cutoff $block */ ?>
+<?php $jsonHelper = $this->helper('Magento\Framework\Json\Helper\Data'); ?>
+
+<div class="cutoff" data-bind="scope:'cutoff-scope'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        ".cutoff": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "cutoff-scope": {
+                        "component": "cutoffAt",
+                        "expiresAt": <?= /* @escapeNotVerified */ $jsonHelper->jsonEncode($block->getCutoffAt()) ?>
+                    }
+                }
+            }
+        }
+    }
+</script>
