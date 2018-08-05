@@ -1,0 +1,24 @@
+<li id="order_notes" data-bind="fadeVisible: isVisible">
+    <div class="step-title" data-bind="text: getTitle()" data-role="title"></div>
+    <div id="step-content" class="step-content" data-role="content">
+        <div class="step-header" data-bind="text: getHeader()" data-role="header"></div>
+        <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
+            <div data-bind="foreach: getNotesOptions()" class="field choice">
+                <input type="radio" name="order[notes]" class="radio"
+                       data-bind="value: code, click: $parent.setOrderNotes"/>
+                <label data-bind="attr: {'for': code}" class="label">
+                    <span data-bind="text: value"></span>
+                </label>
+            </div>
+            <textarea name="order_notes"></textarea>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button data-role="opc-continue" type="submit" class="button action continue primary">
+                        <span><!-- ko i18n: 'Next'--><!-- /ko --></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="step-footer" data-bind="text: getFooter()" data-role="footer"></div>
+    </div>
+</li>
