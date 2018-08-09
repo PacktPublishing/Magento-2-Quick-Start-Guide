@@ -1,0 +1,12 @@
+<div class="contact-preferences-component" data-bind="if: isCustomerLoggedIn()">
+    <div class="step-title iweb-contact-preferences-title" data-role="title" data-bind="i18n: 'Contact Preferences'"></div>
+    <div class="contact-preferences" data-role="content">
+        <div class="contact_preference" repeat="foreach: getSelectOptions(), item: '$option'">
+            <input type="checkbox"
+                   click="saveContactPreferences"
+                   ko-checked="$option().checked"
+                   attr="name: $option().value"/>
+            <label text="$option().label" attr="for: $option().value"/>
+        </div>
+    </div>
+</div>
