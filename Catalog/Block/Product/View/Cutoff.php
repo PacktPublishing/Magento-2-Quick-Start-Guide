@@ -54,6 +54,7 @@ class Cutoff extends \Magento\Framework\View\Element\Template implements \Magent
         $timezone = new \DateTimeZone($this->localeDate->getConfigTimezone());
         $now = new \DateTime('now', $timezone);
         $day = strtolower($now->format('l'));
-        return array_push($identities, $day);
+        array_push($identities, $day);
+        return $identities;
     }
 }
